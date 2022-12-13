@@ -16,15 +16,30 @@ const part1 = (rawInput: string) => {
         }
 
         calories += +elfFood;
-    })
+    });
 
     return Math.max.apply(null, elves);
 };
 
 const part2 = (rawInput: string) => {
-    const input = parseInput(rawInput);
+    const input = parseInput(rawInput).split('\n');
 
-    return;
+    let calories: number = 0;
+    const elves: Array<number> = [];
+
+    input.forEach((elfFood) => {
+        if (elfFood === '') {
+            elves.push(calories);
+            calories = 0;
+            return;
+        }
+
+        calories += +elfFood;
+    });
+
+    const sortedElves = elves.sort((a, b) => a > b ? -1 : 1);
+    const total = sortedElves.splice(0, 3).reduce((acc, cur) => acc + cur);
+    return total;
 };
 
 run({
